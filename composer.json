@@ -1,0 +1,24 @@
+{
+    "name": "torfs-ict/cmsms-netdesign",
+    "description": "",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kristof Torfs",
+            "email": "kristof@torfs.org"
+        }
+    ],
+    "require": {
+        "torfs-ict/cmsms": "^2.1"
+    },
+    "autoload": {
+        "psr-4": { "NetDesign\\" : "libs/" }
+    },
+    "extra": {
+        "cmsms": {
+            "module": true,
+            "name": "NetDesign"
+        }
+    }
+}
