@@ -220,56 +220,6 @@ abstract class NetDesignModule extends \CMSModule {
     }
     #endregion
 
-    #region Class-loading methods
-    /**
-     * Register a directory to autoload classes matching $pattern. Files can be named 'class.MyClassName.php',
-     * 'interface.MyClassName.php' or 'MyClassName.php'.
-     *
-     * @param string $directory The directory (relative to our module).
-     * @param string $pattern
-     */
-    final public function ClassDirectoryRegister($directory, $pattern = '*') {
-        $directory = cms_join_path($this->GetModulePath(), $directory);
-        spl_autoload_register(function($class) use ($directory, $pattern) {
-            if (!fnmatch($pattern, $class)) return;
-            $filenames = array(
-                cms_join_path($directory, str_replace('\\', DIRECTORY_SEPARATOR, sprintf('class.%s.php', $class))),
-                cms_join_path($directory, str_replace('\\', DIRECTORY_SEPARATOR, sprintf('interface.%s.php', $class))),
-                cms_join_path($directory, str_replace('\\', DIRECTORY_SEPARATOR, sprintf('%s.php', $class)))
-            );
-            $found = null;
-            foreach($filenames as $fn) {
-                if (!file_exists($fn)) continue;
-                $found = $fn;
-                require_once($fn);
-                if (class_exists($class, false)) return true;
-            }
-        }, true);
-    }
-    /**
-     * Includes all PHP files in the specified directory.
-     *
-     * @param string $directory The directory (relative to our module).
-     * @param bool $recursive
-     */
-    final public function ClassDirectoryInclude($directory, $recursive = true) {
-        $directory = cms_join_path($this->GetModulePath(), $directory);
-        $files = array();
-        if ($recursive === true) {
-            $dir = new \RecursiveDirectoryIterator($directory);
-            $it = new \RecursiveIteratorIterator($dir);
-            $regex = new \RegexIterator($it, '/^.+\.php$/i', \RegexIterator::GET_MATCH);
-            foreach($regex as $file) $files[] = $file[0];
-        } else {
-            $dir = new \DirectoryIterator($directory);
-            $it = new \IteratorIterator($dir);
-            $regex = new \RegexIterator($it, '/^.+\.php$/i', \RegexIterator::GET_MATCH);
-            foreach($regex as $file) $files[] = cms_join_path($directory, $file[0]);
-        }
-        foreach($files as $file) require_once($file);
-    }
-    #endregion
-
     #region Language methods
     /**
      * @var string
