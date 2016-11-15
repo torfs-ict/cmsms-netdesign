@@ -52,7 +52,7 @@ class NetDesignConnection extends PDO {
         parent::__construct($dsn, $username, $password, $options);
         // Set some mandatory properties
         $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('NetDesignStatement', array($this)));
+        $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array(NetDesignStatement::class, array($this)));
     }
 
     /**
