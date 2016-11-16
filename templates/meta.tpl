@@ -1,7 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>{title} | {sitename}</title>
 {if isset($canonical)}<link rel="canonical" href="{$canonical}" />{elseif isset($content_obj)}<link rel="canonical" href="{$content_obj->GetURL()}" />{/if}
-{cms_stylesheet}
+{if $css}{cms_stylesheet}{/if}
 {metadata}
 {cms_selflink dir="start" rellink=1}
 {cms_selflink dir="prev" rellink=1}

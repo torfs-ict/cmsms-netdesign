@@ -165,7 +165,11 @@ class NetDesign extends NetDesignModule {
      * @return string
      */
     public static function PluginTemplateMeta($params, Smarty_Internal_Template $template) {
-        return NetDesign::GetInstance()->SmartyFetch('meta.tpl');
+        $nd = NetDesign::GetInstance();
+        if (!array_key_exists('css', $params)) $params['css'] = false;
+        $params['css'] = cms_to_bool($params['css']);
+        $nd->assign('css', $params['css']);
+        return $nd->SmartyFetch('meta.tpl');
     }
     #endregion
 
