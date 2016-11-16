@@ -39,7 +39,7 @@ class NetDesign extends NetDesignModule {
         return array();
     }
     public function GetVersion() {
-        return '1.0.2';
+        return '1.0.3';
     }
     public function HasAdmin() {
         return true;
