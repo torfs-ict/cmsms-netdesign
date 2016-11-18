@@ -48,7 +48,7 @@ abstract class NetDesignModule extends \CMSModule {
      * @return array
      */
     function GetDependencies() {
-        return array('NetDesign' => '1.0.0');
+        return array('NetDesign' => '2.0.0');
     }
 
     /**
@@ -57,6 +57,15 @@ abstract class NetDesignModule extends \CMSModule {
     public function GetFriendlyName() {
         return parent::GetFriendlyName();
     }
+
+    /**
+     * @return string
+     */
+    final public function GetVersion() {
+        $composer = json_decode(file_get_contents(cms_join_path($this->GetModulePath(), 'composer.json')));
+        return $composer->version;
+    }
+
 
     /**
      * @return bool
