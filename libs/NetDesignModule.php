@@ -48,7 +48,7 @@ abstract class NetDesignModule extends \CMSModule {
      * @return array
      */
     function GetDependencies() {
-        return array('NetDesign' => '1.0.0');
+        return array('NetDesign' => '2.0.0');
     }
 
     /**
