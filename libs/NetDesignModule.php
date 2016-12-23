@@ -382,11 +382,15 @@ abstract class NetDesignModule extends \CMSModule {
      * the combination of $this->smarty->fetch and $this->SmartyResource.
      *
      * @param string $template The template filename.
+     * @param string $fallback The template filename to fall back to in case $template does not exist.
      * @return string
      */
-    final public function SmartyClientFetch($template) {
+    final public function SmartyClientFetch($template, $fallback = null) {
         $this->SmartyHeaders();
-        return $this->smarty->fetch($this->SmartyResource($template));
+        $tpl = $this->SmartyResource($template);
+        $fb = $this->SmartyResource($fallback);
+        if (!$this->smarty->templateExists($tpl) && $this->smarty->templateExists($fb)) $tpl = $fb;
+        return $this->smarty->fetch($tpl);
     }
 
     /**
