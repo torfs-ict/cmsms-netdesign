@@ -106,9 +106,14 @@ class NetDesign extends NetDesignModule {
     public static function PluginClientTemplate($params, Smarty_Internal_Template $template) {
         if (!array_key_exists('template', $params)) throw new SmartyException('Required parameter "template" not given for tag "ClientTemplate".');
         $filename = $params['template'];
+        $fallback = null;
         unset($params['template']);
+        if (array_key_exists('fallback', $params)) {
+            $fallback = $params['fallback'];
+            unset($params['fallback']);
+        }
         $template->assign($params);
-        return NetDesign::GetInstance()->SmartyClientFetch($filename);
+        return NetDesign::GetInstance()->SmartyClientFetch($filename, $fallback);
     }
 
     /**
